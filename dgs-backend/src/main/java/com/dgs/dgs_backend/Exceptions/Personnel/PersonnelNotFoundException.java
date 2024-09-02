@@ -1,8 +1,8 @@
-package com.dgs.dgs_backend.Exceptions.ClientOrganisation;
+package com.dgs.dgs_backend.Exceptions.Personnel;
 
-    public class ClientOrganisationNotFoundException extends RuntimeException {
-        public ClientOrganisationNotFoundException(Long id) {
-            super("ClientOrganisation with ID " + id + " not found.");
+    public class PersonnelNotFoundException extends RuntimeException {
+        public PersonnelNotFoundException(Long id) {
+            super("Personnel with ID " + id + " not found.");
         }
     }
 

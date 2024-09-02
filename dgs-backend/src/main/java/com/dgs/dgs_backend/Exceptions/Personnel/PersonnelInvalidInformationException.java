@@ -1,8 +1,8 @@
 package com.dgs.dgs_backend.Exceptions.Personnel;
 
-    public class PersonnelUsernameExistsException extends RuntimeException {
-        public PersonnelUsernameExistsException(String name) {
-            super("Personnel with username " + name + " already exists.");
+    public class PersonnelInvalidInformationException extends RuntimeException {
+        public PersonnelInvalidInformationException(String field) {
+            super("Invalid field: " + field);
         }
     }
 

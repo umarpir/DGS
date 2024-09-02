@@ -1,4 +1,4 @@
-package com.dgs.dgs_backend.rest.entity.organisation.personnel;
+package com.dgs.dgs_backend.rest.requests.personnel;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

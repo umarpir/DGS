@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,10 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "personnel")
 public class Personnel {
+    //TODO: Create indexes for username, organisation id && caching
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +40,7 @@ public class Personnel {
     private String username;
 
     @NotNull
-    private String password; // Ensure to store this securely
+    private String password;
 
     @NotNull
     private String email;
@@ -44,9 +48,7 @@ public class Personnel {
     @NotNull
     private String telephoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "clientOrganisation_id", nullable = false)
-    @JsonIgnore
-    private ClientOrganisation clientOrganisation;
+    @NotNull
+    private Long clientOrganisationId;
 
 }

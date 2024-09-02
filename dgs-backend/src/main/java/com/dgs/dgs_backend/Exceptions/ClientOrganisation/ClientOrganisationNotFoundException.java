@@ -1,4 +1,4 @@
-package com.dgs.dgs_backend.Exceptions;
+package com.dgs.dgs_backend.Exceptions.ClientOrganisation;
 
     public class ClientOrganisationNotFoundException extends RuntimeException {
         public ClientOrganisationNotFoundException(Long id) {

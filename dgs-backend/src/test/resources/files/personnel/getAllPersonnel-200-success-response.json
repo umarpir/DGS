@@ -1,0 +1,137 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "username": "john_doe1",
+    "email": "john.doe1@example.com",
+    "telephoneNumber": "123-456-7890",
+    "clientOrganisationId": 1
+  },
+  {
+    "id": 2,
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "username": "jane_doe1",
+    "email": "jane.doe1@example.com",
+    "telephoneNumber": "123-456-7891",
+    "clientOrganisationId": 1
+  },
+  {
+    "id": 3,
+    "firstName": "Jim",
+    "lastName": "Beam",
+    "username": "jim_beam1",
+    "email": "jim.beam1@example.com",
+    "telephoneNumber": "123-456-7892",
+    "clientOrganisationId": 1
+  },
+  {
+    "id": 4,
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "username": "alice_smith2",
+    "email": "alice.smith2@example.com",
+    "telephoneNumber": "098-765-4320",
+    "clientOrganisationId": 2
+  },
+  {
+    "id": 5,
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "username": "bob_smith2",
+    "email": "bob.smith2@example.com",
+    "telephoneNumber": "098-765-4321",
+    "clientOrganisationId": 2
+  },
+  {
+    "id": 6,
+    "firstName": "Charlie",
+    "lastName": "Brown",
+    "username": "charlie_brown2",
+    "email": "charlie.brown2@example.com",
+    "telephoneNumber": "098-765-4322",
+    "clientOrganisationId": 2
+  },
+  {
+    "id": 7,
+    "firstName": "David",
+    "lastName": "Johnson",
+    "username": "david_johnson3",
+    "email": "david.johnson3@example.com",
+    "telephoneNumber": "234-567-8901",
+    "clientOrganisationId": 3
+  },
+  {
+    "id": 8,
+    "firstName": "Eve",
+    "lastName": "Johnson",
+    "username": "eve_johnson3",
+    "email": "eve.johnson3@example.com",
+    "telephoneNumber": "234-567-8902",
+    "clientOrganisationId": 3
+  },
+  {
+    "id": 9,
+    "firstName": "Frank",
+    "lastName": "Wright",
+    "username": "frank_wright3",
+    "email": "frank.wright3@example.com",
+    "telephoneNumber": "234-567-8903",
+    "clientOrganisationId": 3
+  },
+  {
+    "id": 10,
+    "firstName": "Grace",
+    "lastName": "Hopper",
+    "username": "grace_hopper4",
+    "email": "grace.hopper4@example.com",
+    "telephoneNumber": "345-678-9012",
+    "clientOrganisationId": 4
+  },
+  {
+    "id": 11,
+    "firstName": "Hank",
+    "lastName": "Pym",
+    "username": "hank_pym4",
+    "email": "hank.pym4@example.com",
+    "telephoneNumber": "345-678-9013",
+    "clientOrganisationId": 4
+  },
+  {
+    "id": 12,
+    "firstName": "Ivy",
+    "lastName": "Green",
+    "username": "ivy_green4",
+    "email": "ivy.green4@example.com",
+    "telephoneNumber": "345-678-9014",
+    "clientOrganisationId": 4
+  },
+  {
+    "id": 13,
+    "firstName": "Jack",
+    "lastName": "Black",
+    "username": "jack_black5",
+    "email": "jack.black5@example.com",
+    "telephoneNumber": "456-789-0123",
+    "clientOrganisationId": 5
+  },
+  {
+    "id": 14,
+    "firstName": "Kara",
+    "lastName": "White",
+    "username": "kara_white5",
+    "email": "kara.white5@example.com",
+    "telephoneNumber": "456-789-0124",
+    "clientOrganisationId": 5
+  },
+  {
+    "id": 15,
+    "firstName": "Leo",
+    "lastName": "Gray",
+    "username": "leo_gray5",
+    "email": "leo.gray5@example.com",
+    "telephoneNumber": "456-789-0125",
+    "clientOrganisationId": 5
+  }
+]

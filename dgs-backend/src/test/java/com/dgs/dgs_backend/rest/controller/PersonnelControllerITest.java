@@ -2,7 +2,7 @@ package com.dgs.dgs_backend.rest.controller;
 
 import com.dgs.dgs_backend.DgsBackendApplication;
 import com.dgs.dgs_backend.rest.dto.ClientOrganisationDTO;
-import com.dgs.dgs_backend.service.ClientOrganisationService;
+import com.dgs.dgs_backend.service.PersonnelService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,10 +38,10 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ActiveProfiles("test")
 @Sql(scripts = {"/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 @Transactional
-public class ClientOrganisationControllerITest {
+public class PersonnelControllerITest {
 
     @Autowired
-    ClientOrganisationService clientOrganisationService;
+    PersonnelService clientOrganisationService;
 
     @BeforeEach
     void setUp(@LocalServerPort int serverPort) {
@@ -51,11 +51,11 @@ public class ClientOrganisationControllerITest {
     }
     @Test
     public void expectGetAllClientOrganisationsSuccess() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/getAllOrganisations-200-success-response.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/getAllPersonnel-200-success-response.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .get("/dgs-api/v1/organisations")
+                .get("/dgs-api/v1/personnel")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                         .extract().asString();
@@ -63,11 +63,11 @@ public class ClientOrganisationControllerITest {
     }
     @Test
     public void expectGetClientOrganisationSuccess() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/getOrganisation-200-success-response.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-200-success-response.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .get("/dgs-api/v1/organisations/1")
+                .get("/dgs-api/v1/personnel/1")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .extract().asString();
@@ -75,11 +75,11 @@ public class ClientOrganisationControllerITest {
     }
     @Test
     public void expectGetClientOrganisationthrows404Exception() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/getOrganisation-404-not-found-response.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-404-not-found-response.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .get("/dgs-api/v1/organisations/10")
+                .get("/dgs-api/v1/personnel/100")
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .extract().asString();
@@ -87,22 +87,22 @@ public class ClientOrganisationControllerITest {
     }
     @Test
     public void expectDeleteClientOrganisationSuccess() throws IOException, JSONException {
-        String expectedResponse = "Organisation deleted successfully";
+        String expectedResponse = "Personnel successfully deleted.";
         RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .delete("/dgs-api/v1/organisations/1")
+                .delete("/dgs-api/v1/personnel/1")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(is(expectedResponse));
     }
     @Test
     public void expectDeleteClientOrganisationthrows404Exception() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/getOrganisation-404-not-found-response.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-404-not-found-response.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .delete("/dgs-api/v1/organisations/10")
+                .delete("/dgs-api/v1/personnel/100")
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .extract().asString();
@@ -110,34 +110,34 @@ public class ClientOrganisationControllerITest {
     }
     @Test
     public void expectSaveClientOrganisation200Success() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/saveOrganisation-200-response.json");
-        String request = getStringResponseFromFile("/files/organisation/saveOrganisation-200-request.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/savePersonnel-200-response.json");
+        String request = getStringResponseFromFile("/files/personnel/savePersonnel-200-request.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
                 .body(request)
-                .post("/dgs-api/v1/organisations/")
+                .post("/dgs-api/v1/personnel/1")
                 .then()
-                .statusCode(HttpStatus.CREATED.value())
+                .statusCode(HttpStatus.OK.value())
                 .extract().asString();
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
     public void expectPutClientOrganisation200Success() throws IOException, JSONException {
-        String expectedResponse = getStringResponseFromFile("/files/organisation/putOrganisation-200-response.json");
-        String request = getStringResponseFromFile("/files/organisation/putOrganisation-200-request.json");
+        String expectedResponse = getStringResponseFromFile("/files/personnel/putPersonnel-200-response.json");
+        String request = getStringResponseFromFile("/files/personnel/putPersonnel-200-request.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
                 .body(request)
-                .put("/dgs-api/v1/organisations/1")
+                .put("/dgs-api/v1/personnel/2")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .extract().asString();
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
 
-    //TODO: More tests for different error responses!
+    //TODO: More tests for different error responses! params/conflicts etc
     private String getStringResponseFromFile(String path) throws IOException {
         return StreamUtils.copyToString(new ClassPathResource(path).getInputStream(), defaultCharset());
     }

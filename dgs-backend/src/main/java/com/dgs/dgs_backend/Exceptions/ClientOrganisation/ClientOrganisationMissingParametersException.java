@@ -1,8 +1,8 @@
 package com.dgs.dgs_backend.Exceptions.ClientOrganisation;
 
-    public class ClientOrganisationNotFoundException extends RuntimeException {
-        public ClientOrganisationNotFoundException(Long id) {
-            super("ClientOrganisation with ID " + id + " not found.");
+    public class ClientOrganisationMissingParametersException extends RuntimeException {
+        public ClientOrganisationMissingParametersException(String name) {
+            super("Request for client organisation is missing parameter: " + name + ".");
         }
     }
 

@@ -1,8 +1,8 @@
 package com.dgs.dgs_backend.Exceptions.ClientOrganisation;
 
-    public class ClientOrganisationNotFoundException extends RuntimeException {
-        public ClientOrganisationNotFoundException(Long id) {
-            super("ClientOrganisation with ID " + id + " not found.");
+    public class ClientOrganisationNameExistsException extends RuntimeException {
+        public ClientOrganisationNameExistsException(String name) {
+            super("ClientOrganisation with name " + name + " already exists.");
         }
     }
 

@@ -1,6 +1,7 @@
-package com.dgs.dgs_backend.controller;
+package com.dgs.dgs_backend.rest.controller;
 
-import com.dgs.dgs_backend.domain.ClientOrganisation;
+import com.dgs.dgs_backend.rest.dto.ClientOrganisationDTO;
+import com.dgs.dgs_backend.rest.requests.organisation.OrganisationRequest;
 import com.dgs.dgs_backend.service.ClientOrganisationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/dgs-api/v1/organisations", produces = APPLICATION_JSON_VALUE)
 public class ClientOrganisationController {
     private ClientOrganisationService clientOrganisationService;
-    @GetMapping("/")
-    public ResponseEntity<List<ClientOrganisation>> getAllClientOrganisations() {
-        List<ClientOrganisation> response =  clientOrganisationService.findAllOrganisations();
+    @GetMapping
+    public ResponseEntity<List<ClientOrganisationDTO>> getAllClientOrganisations() {
+        List<ClientOrganisationDTO> response =  clientOrganisationService.findAllOrganisations();
         if (response == null) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -35,28 +36,28 @@ public class ClientOrganisationController {
     }
 
     @GetMapping("/{organisationId}")
-    public ResponseEntity<ClientOrganisation> getClientOrganisationById(@PathVariable String organisationId) {
-            ClientOrganisation response = clientOrganisationService.findOrganisationById(Long.valueOf(organisationId));
+    public ResponseEntity<ClientOrganisationDTO> getClientOrganisationById(@PathVariable String organisationId) {
+            ClientOrganisationDTO response = clientOrganisationService.findOrganisationById(Long.valueOf(organisationId));
             return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{organisationId}")
     public ResponseEntity<String> DeleteClientOrganisationById(@PathVariable String organisationId) {
-            clientOrganisationService.deleteOrganisationById(Long.valueOf(organisationId));
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            String response = clientOrganisationService.deleteOrganisationById(Long.valueOf(organisationId));
+            return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @PutMapping("/{organisationId}")
-    public ResponseEntity<ClientOrganisation> updateOrganisation(
-            @PathVariable Long id,
-            @RequestBody ClientOrganisation updatedOrganisation) {
-        ClientOrganisation updatedOrg = clientOrganisationService.updateOrganisation(id, updatedOrganisation);
-        return ResponseEntity.ok(updatedOrg);
+    public ResponseEntity<ClientOrganisationDTO> updateOrganisation(
+            @PathVariable String organisationId,
+            @RequestBody OrganisationRequest updatedOrganisation) {
+        ClientOrganisationDTO updatedOrg = clientOrganisationService.updateOrganisation(Long.valueOf(organisationId), updatedOrganisation);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(updatedOrg);
     }
 
-    @PostMapping("/organisationId")
-    public ResponseEntity<ClientOrganisation> saveOrganisation(@RequestBody ClientOrganisation clientOrganisation) {
-        ClientOrganisation savedOrganisation = clientOrganisationService.saveOrganisation(clientOrganisation);
-        return ResponseEntity.ok(savedOrganisation);
+    @PostMapping("/")
+    public ResponseEntity<ClientOrganisationDTO> saveOrganisation(@RequestBody OrganisationRequest clientOrganisation) {
+        ClientOrganisationDTO savedOrganisation = clientOrganisationService.saveOrganisation(clientOrganisation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedOrganisation);
     }
 
 }
