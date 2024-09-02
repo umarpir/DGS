@@ -22,11 +22,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/dgs-api/v1", produces = APPLICATION_JSON_VALUE)
-
+@RequestMapping(value = "/dgs-api/v1/organisations", produces = APPLICATION_JSON_VALUE)
 public class ClientOrganisationController {
     private ClientOrganisationService clientOrganisationService;
-    @GetMapping("/clients")
+    @GetMapping("/")
     public ResponseEntity<List<ClientOrganisation>> getAllClientOrganisations() {
         List<ClientOrganisation> response =  clientOrganisationService.findAllOrganisations();
         if (response == null) {
@@ -35,18 +34,18 @@ public class ClientOrganisationController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/clients/{organisationId}")
+    @GetMapping("/{organisationId}")
     public ResponseEntity<ClientOrganisation> getClientOrganisationById(@PathVariable String organisationId) {
             ClientOrganisation response = clientOrganisationService.findOrganisationById(Long.valueOf(organisationId));
             return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/clients/{organisationId}")
+    @DeleteMapping("/{organisationId}")
     public ResponseEntity<String> DeleteClientOrganisationById(@PathVariable String organisationId) {
             clientOrganisationService.deleteOrganisationById(Long.valueOf(organisationId));
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-    @PutMapping("/clients/{id}")
+    @PutMapping("/{organisationId}")
     public ResponseEntity<ClientOrganisation> updateOrganisation(
             @PathVariable Long id,
             @RequestBody ClientOrganisation updatedOrganisation) {
@@ -54,7 +53,7 @@ public class ClientOrganisationController {
         return ResponseEntity.ok(updatedOrg);
     }
 
-    @PostMapping("/clients")
+    @PostMapping("/organisationId")
     public ResponseEntity<ClientOrganisation> saveOrganisation(@RequestBody ClientOrganisation clientOrganisation) {
         ClientOrganisation savedOrganisation = clientOrganisationService.saveOrganisation(clientOrganisation);
         return ResponseEntity.ok(savedOrganisation);

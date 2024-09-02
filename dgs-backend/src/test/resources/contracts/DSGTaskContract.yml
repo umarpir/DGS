@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  title: DGS API
+  description: API documentation for DGS Backend
+  version: 1.0.0
+paths:
+  /dgs-api/v1/organisations:
+    get:
+      summary: Get all client organisations
+      operationId: getAllClientOrganisations
+      responses:
+        '200':
+          description: Successfully retrieved list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientOrganisationDTO'
+        '204':
+          description: No content
+    post:
+      summary: Create a new client organisation
+      operationId: saveOrganisation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganisationRequest'
+      responses:
+        '201':
+          description: Successfully created organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientOrganisationDTO'
+  /dgs-api/v1/organisations/{organisationId}:
+    get:
+      summary: Get a client organisation by ID
+      operationId: getClientOrganisationById
+      parameters:
+        - name: organisationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientOrganisationDTO'
+        '404':
+          description: Organisation not found
+    delete:
+      summary: Delete a client organisation by ID
+      operationId: deleteClientOrganisationById
+      parameters:
+        - name: organisationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted organisation
+        '404':
+          description: Organisation not found
+    put:
+      summary: Update a client organisation by ID
+      operationId: updateOrganisation
+      parameters:
+        - name: organisationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganisationRequest'
+      responses:
+        '200':
+          description: Successfully updated organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientOrganisationDTO'
+        '404':
+          description: Organisation not found
+  /dgs-api/v1/personnel:
+    get:
+      summary: Get all personnel
+      operationId: getAllPersonnel
+      responses:
+        '200':
+          description: Successfully retrieved list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonnelDTO'
+        '204':
+          description: No content
+  /dgs-api/v1/personnel/{personnelId}:
+    get:
+      summary: Get personnel by ID
+      operationId: getPersonnelById
+      parameters:
+        - name: personnelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved personnel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonnelDTO'
+        '404':
+          description: Personnel not found
+    delete:
+      summary: Delete personnel by ID
+      operationId: deletePersonnelById
+      parameters:
+        - name: personnelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully deleted personnel
+        '404':
+          description: Personnel not found
+    put:
+      summary: Update personnel by ID
+      operationId: updatePersonnel
+      parameters:
+        - name: personnelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonnelRequest'
+      responses:
+        '200':
+          description: Successfully updated personnel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonnelDTO'
+        '404':
+          description: Personnel not found
+  /dgs-api/v1/personnel/{organisationId}:
+    post:
+      summary: Create new personnel for an organisation
+      operationId: savePersonnel
+      parameters:
+        - name: organisationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonnelRequest'
+      responses:
+        '201':
+          description: Successfully created personnel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonnelDTO'
+components:
+  schemas:
+    ClientOrganisationDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Acme Corp
+        enabled:
+          type: boolean
+          example: true
+        expiryDate:
+          type: string
+          format: date
+          example: 2025-12-31
+        registrationDate:
+          type: string
+          format: date
+          example: 2023-01-01
+    OrganisationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        expiryDate:
+          type: string
+          format: date
+    PersonnelDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        username:
+          type: string
+          example: johndoe
+        email:
+          type: string
+          example: johndoe@example.com
+        telephoneNumber:
+          type: string
+          example: 12345678901
+        clientOrganisationId:
+          type: integer
+          example: 1
+    PersonnelRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        telephoneNumber:
+          type: string
