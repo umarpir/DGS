@@ -15,7 +15,7 @@ const Organisation = () => {
     const fetchOrganisation = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/dgs-api/v1/organisations/${id}`
+          `http://localhost:8085/dgs-api/v1/organisations/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -30,7 +30,7 @@ const Organisation = () => {
     const fetchPersonnel = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/dgs-api/v1/personnel/organisation/${id}`
+          `http://localhost:8085/dgs-api/v1/personnel/organisation/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

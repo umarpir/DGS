@@ -37,7 +37,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = {DgsBackendApplication.class})
 @ActiveProfiles("test")
 @Sql(scripts = {"/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
-@Transactional
 public class PersonnelControllerITest {
 
     @Autowired
