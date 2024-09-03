@@ -55,7 +55,7 @@ public class PersonnelController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @PutMapping("/{personnelId}")
-    public ResponseEntity<PersonnelDTO> updateOrganisation(
+    public ResponseEntity<PersonnelDTO> updatePersonnel(
             @PathVariable Long personnelId,
             @RequestBody PersonnelRequest updatePersonnelRequest) {
         PersonnelDTO updatedPersonnel = personnelService.updatePersonnel(personnelId, updatePersonnelRequest);
@@ -63,7 +63,7 @@ public class PersonnelController {
     }
 
     @PostMapping("/{organisationId}")
-    public ResponseEntity<PersonnelDTO> saveOrganisation(@PathVariable Long organisationId,
+    public ResponseEntity<PersonnelDTO> savePersonnel(@PathVariable Long organisationId,
                                                       @RequestBody PersonnelRequest personnelRequest) {
         PersonnelDTO savedPersonnel = personnelService.savePersonnel(organisationId, personnelRequest);
         return ResponseEntity.ok(savedPersonnel);

@@ -63,8 +63,10 @@ public class PersonnelService {
             if (personnelRepository.existsByUsernameAndIdNot(updatedPersonnel.getUsername(), id)) {
                 throw new PersonnelUsernameExistsException(updatedPersonnel.getUsername());
             }
-
             String newPassword = updatedPersonnel.getPassword();
+            if(updatedPersonnel.getPassword() == null) {
+                newPassword = existingPersonnel.get().getPassword();
+            }
             String existingPassword = existingPersonnel.get().getPassword();
             String hashedPassword;
 
