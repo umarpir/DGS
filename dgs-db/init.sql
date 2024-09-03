@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS personnel (
     );
 
 INSERT INTO client_organisation (name, registration_date, expiry_date, enabled) VALUES
-                                                                                    ('Org One', '2024-01-01', '2025-01-01', TRUE),
+                                                                                    ('Org One', '2024-01-01', '2024-09-09', TRUE),
                                                                                     ('Org Two', '2024-02-01', '2025-02-01', FALSE),
                                                                                     ('Org Three', '2024-03-01', '2025-03-01', TRUE),
                                                                                     ('Org Four', '2024-04-01', '2025-04-01', TRUE),

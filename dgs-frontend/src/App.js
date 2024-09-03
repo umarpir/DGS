@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Organisation from './pages/organisation';
+import Organisations from './pages/organisations';
+import Home from './pages/home';
+import Personnel from './pages/personnel';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home/>,
+    children: [
+      { index: true, element: <Organisations/> }, // Homepage displaying all organisations
+      { path: '/:id', element: <Organisation/> },
+      { path: 'personnel/:id', element: <Personnel/> } // Single organisation based on ID parameter
+      // Uncomment if you have a Personnel component
+      // { path: 'organisations/:id/personnel', element: <Personnel /> } // Personnel based on organisation ID parameter
+    ]
+  }
+]);
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router}/>
+
   );
 }
 

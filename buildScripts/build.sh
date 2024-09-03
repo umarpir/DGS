@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+echo "Building projects..."
+docker-compose build
 
 echo "Starting database container..."
 docker-compose up -d db
