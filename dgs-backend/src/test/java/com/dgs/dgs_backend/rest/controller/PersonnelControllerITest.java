@@ -50,7 +50,7 @@ public class PersonnelControllerITest {
         RestAssured.config = newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL));
     }
     @Test
-    public void expectGetAllClientOrganisationsSuccess() throws IOException, JSONException {
+    public void expectGetAllPersonnelSuccess() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/getAllPersonnel-200-success-response.json");
         String response = RestAssured.given()
                 .when().log().all()
@@ -62,19 +62,19 @@ public class PersonnelControllerITest {
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
-    public void expectGetClientOrganisationSuccess() throws IOException, JSONException {
+    public void expectGetPersonnelSuccess() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-200-success-response.json");
         String response = RestAssured.given()
                 .when().log().all()
                 .header(CONTENT_TYPE, "application/json")
-                .get("/dgs-api/v1/personnel/1")
+                .get("/dgs-api/v1/personnel/2")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .extract().asString();
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
-    public void expectGetClientOrganisationthrows404Exception() throws IOException, JSONException {
+    public void expectGetPersonnelthrows404Exception() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-404-not-found-response.json");
         String response = RestAssured.given()
                 .when().log().all()
@@ -86,7 +86,7 @@ public class PersonnelControllerITest {
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
-    public void expectDeleteClientOrganisationSuccess() throws IOException, JSONException {
+    public void expectDeletePersonnelSuccess() throws IOException, JSONException {
         String expectedResponse = "Personnel successfully deleted.";
         RestAssured.given()
                 .when().log().all()
@@ -97,7 +97,7 @@ public class PersonnelControllerITest {
                 .body(is(expectedResponse));
     }
     @Test
-    public void expectDeleteClientOrganisationthrows404Exception() throws IOException, JSONException {
+    public void expectDeletePersonnelthrows404Exception() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/getPersonnel-404-not-found-response.json");
         String response = RestAssured.given()
                 .when().log().all()
@@ -109,7 +109,7 @@ public class PersonnelControllerITest {
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
-    public void expectSaveClientOrganisation200Success() throws IOException, JSONException {
+    public void expectSavePersonnel200Success() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/savePersonnel-200-response.json");
         String request = getStringResponseFromFile("/files/personnel/savePersonnel-200-request.json");
         String response = RestAssured.given()
@@ -123,7 +123,7 @@ public class PersonnelControllerITest {
         JSONAssert.assertEquals(expectedResponse, response,true);
     }
     @Test
-    public void expectPutClientOrganisation200Success() throws IOException, JSONException {
+    public void expectPutPersonnel200Success() throws IOException, JSONException {
         String expectedResponse = getStringResponseFromFile("/files/personnel/putPersonnel-200-response.json");
         String request = getStringResponseFromFile("/files/personnel/putPersonnel-200-request.json");
         String response = RestAssured.given()
