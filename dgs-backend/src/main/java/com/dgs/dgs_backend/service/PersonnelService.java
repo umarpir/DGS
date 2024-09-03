@@ -59,36 +59,30 @@ public class PersonnelService {
     @Transactional
     public PersonnelDTO updatePersonnel(Long id, PersonnelRequest updatedPersonnel) {
         Optional<Personnel> existingPersonnel = personnelRepository.findById(id);
-        if (existingPersonnel.isPresent()) {
-            if (personnelRepository.existsByUsernameAndIdNot(updatedPersonnel.getUsername(), id)) {
-                throw new PersonnelUsernameExistsException(updatedPersonnel.getUsername());
-            }
-            String newPassword = updatedPersonnel.getPassword();
-            if(updatedPersonnel.getPassword() == null) {
-                newPassword = existingPersonnel.get().getPassword();
-            }
-            String existingPassword = existingPersonnel.get().getPassword();
-            String hashedPassword;
-
-            if (passwordEncoder.matches(newPassword, existingPassword)) {
-
-                hashedPassword = existingPassword;
-            } else {
-                hashedPassword = passwordEncoder.encode(newPassword);
-            }
-            Personnel personnel = existingPersonnel.get();
-            personnel.setEmail(updatedPersonnel.getEmail());
-            personnel.setPassword(hashedPassword);
-            personnel.setUsername(updatedPersonnel.getUsername());
-            personnel.setFirstName(updatedPersonnel.getFirstName());
-            personnel.setLastName(updatedPersonnel.getLastName());
-            personnel.setTelephoneNumber(updatedPersonnel.getTelephoneNumber());
-
-
-            return convertToDTO(personnelRepository.save(personnel));
-        } else {
+        if (!existingPersonnel.isPresent()) {
             throw new PersonnelNotFoundException(id);
         }
+        if (personnelRepository.existsByUsernameAndIdNot(updatedPersonnel.getUsername(), id)) {
+            throw new PersonnelUsernameExistsException(updatedPersonnel.getUsername());
+        }
+        Personnel personnel = existingPersonnel.get();
+        String newPassword = updatedPersonnel.getPassword();
+        String existingPassword = personnel.getPassword();
+        String hashedPassword;
+        boolean isExistingPassword = newPassword == null || passwordEncoder.matches(newPassword, existingPassword);
+        if (isExistingPassword) {
+            hashedPassword = existingPassword;
+        } else {
+            hashedPassword = passwordEncoder.encode(newPassword);
+        }
+        personnel.setEmail(updatedPersonnel.getEmail());
+        personnel.setUsername(updatedPersonnel.getUsername());
+        personnel.setFirstName(updatedPersonnel.getFirstName());
+        personnel.setLastName(updatedPersonnel.getLastName());
+        personnel.setTelephoneNumber(updatedPersonnel.getTelephoneNumber());
+        personnel.setPassword(hashedPassword);
+
+        return convertToDTO(personnelRepository.save(personnel));
     }
     @Transactional
     public PersonnelDTO savePersonnel(Long organisationId, PersonnelRequest personnelRequest) {

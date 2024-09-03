@@ -3,7 +3,6 @@ package com.dgs.dgs_backend.rest.service;
 import com.dgs.dgs_backend.Exceptions.ClientOrganisation.ClientOrganisationNotFoundException;
 import com.dgs.dgs_backend.Exceptions.Personnel.PersonnelInvalidInformationException;
 import com.dgs.dgs_backend.Exceptions.Personnel.PersonnelNotFoundException;
-import com.dgs.dgs_backend.Exceptions.Personnel.PersonnelUsernameExistsException;
 import com.dgs.dgs_backend.domain.ClientOrganisation;
 import com.dgs.dgs_backend.domain.Personnel;
 import com.dgs.dgs_backend.repository.ClientOrganisationRepository;
