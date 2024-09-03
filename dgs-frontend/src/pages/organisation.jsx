@@ -116,74 +116,43 @@ const Organisation = () => {
     }
   };
 
+  const handleDelete = async (personnelId) => {
+    const url = `http://localhost:8085/dgs-api/v1/personnel/${personnelId}`;
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      setPersonnel(personnel.filter((p) => p.id !== personnelId));
+    } catch (error) {
+      console.error("There was an error deleting the personnel!", error);
+    }
+  };
+
   if (!organisation) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h1>{organisation.name}</h1>
-      <button onClick={() => handleEdit("organisation", organisation)}>
+    <div><h1>{organisation.name}</h1><button onClick={() => handleEdit("organisation", organisation)}>
         Edit Organisation
-      </button>
-      <table border="1" style={{ width: "100%", textAlign: "left" }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Enabled</th>
-            <th>Expiry Date</th>
-            <th>Registration Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{organisation.id}</td>
-            <td>{organisation.name}</td>
-            <td>{organisation.enabled ? "Yes" : "No"}</td>
-            <td>{organisation.expiryDate}</td>
-            <td>{organisation.registrationDate}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2>Personnel</h2>
-      <button onClick={handleAdd}>Add Personnel</button>
-      <table
+      </button><table border="1" style={{ width: "100%", textAlign: "left" }}><thead><tr><th>ID</th><th>Name</th><th>Enabled</th><th>Expiry Date</th><th>Registration Date</th></tr></thead><tbody><tr><td>{organisation.id}</td><td>{organisation.name}</td><td>{organisation.enabled ? "Yes" : "No"}</td><td>{organisation.expiryDate}</td><td>{organisation.registrationDate}</td></tr></tbody></table><h2>Personnel</h2><button onClick={handleAdd}>Add Personnel</button><table
         border="1"
         style={{ width: "100%", textAlign: "left", marginTop: "20px" }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Telephone Number</th>
-            <th>Details</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
+      ><thead><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Username</th><th>Email</th><th>Telephone Number</th><th>Details</th><th>Edit</th><th>Delete</th></tr></thead><tbody>
           {personnel.map(
             ({ id, firstName, lastName, username, email, telephoneNumber }) => (
-              <tr key={id}>
-                <td>{id}</td>
-                <td>{firstName}</td>
-                <td>{lastName}</td>
-                <td>{username}</td>
-                <td>{email}</td>
-                <td>{telephoneNumber}</td>
-                <td>
-                  <Link
+              <tr key={id}><td>{id}</td><td>{firstName}</td><td>{lastName}</td><td>{username}</td><td>{email}</td><td>{telephoneNumber}</td><td><Link
                     to={`/personnel/${id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     View
-                  </Link>
-                </td>
-                <td>
-                  <button
+                  </Link></td><td><button
                     onClick={() =>
                       handleEdit("personnel", {
                         id,
@@ -196,29 +165,17 @@ const Organisation = () => {
                     }
                   >
                     Edit
-                  </button>
-                </td>
-              </tr>
+                  </button></td><td><button onClick={() => handleDelete(id)}>Delete</button></td></tr>
             )
           )}
-        </tbody>
-      </table>
-      <Modal show={showModal} handleClose={handleClose}>
-        <form onSubmit={handleSubmit}>
+        </tbody></table><Modal show={showModal} handleClose={handleClose}><form onSubmit={handleSubmit}>
           {editType === "organisation" ? (
-            <>
-              <label>ID: {formData.id}</label>
-              <br />
-              <label>Name:</label>
-              <input
+            <><label>ID: {formData.id}</label><br /><label>Name:</label><input
                 type="text"
                 name="name"
                 value={formData.name || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Enabled:</label>
-              <input
+              /><br /><label>Enabled:</label><input
                 type="checkbox"
                 name="enabled"
                 checked={formData.enabled || false}
@@ -227,83 +184,51 @@ const Organisation = () => {
                     target: { name: "enabled", value: e.target.checked },
                   })
                 }
-              />
-              <br />
-              <label>Expiry Date:</label>
-              <input
+              /><br /><label>Expiry Date:</label><input
                 type="date"
                 name="expiryDate"
                 value={formData.expiryDate || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Registration Date:</label>
-              <input
+              /><br /><label>Registration Date:</label><input
                 type="date"
                 name="registrationDate"
                 value={formData.registrationDate || ""}
                 onChange={handleChange}
-              />
-              <br />
-            </>
+              /><br /></>
           ) : (
-            <>
-              <label>ID: {formData.id}</label>
-              <br />
-              <label>First Name:</label>
-              <input
+            <><label>ID: {formData.id}</label><br /><label>First Name:</label><input
                 type="text"
                 name="firstName"
                 value={formData.firstName || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Last Name:</label>
-              <input
+              /><br /><label>Last Name:</label><input
                 type="text"
                 name="lastName"
                 value={formData.lastName || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Username:</label>
-              <input
+              /><br /><label>Username:</label><input
                 type="text"
                 name="username"
                 value={formData.username || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Password:</label>
-              <input
+              /><br /><label>Password:</label><input
                 type="password"
                 name="password"
                 value={formData.password || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Email:</label>
-              <input
+              /><br /><label>Email:</label><input
                 type="email"
                 name="email"
                 value={formData.email || ""}
                 onChange={handleChange}
-              />
-              <br />
-              <label>Telephone Number:</label>
-              <input
+              /><br /><label>Telephone Number:</label><input
                 type="text"
                 name="telephoneNumber"
                 value={formData.telephoneNumber || ""}
                 onChange={handleChange}
-              />
-              <br />
-            </>
+              /><br /></>
           )}
-          <button type="submit">Save</button>
-        </form>
-      </Modal>
-    </div>
+          <button type="submit">Save</button></form></Modal></div>
   );
 };
 
